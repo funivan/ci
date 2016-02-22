@@ -2,6 +2,7 @@
 - `git clone https://funivan@bitbucket.org/funivan/simple-ci.git`
 - `cd simple-ci`
 - `composer install`
+- `touch database/database.sqlite`
 - `php artisan migrate:refresh`
 - edit configuration file `ci.app.php`
 - add to cron ` * * * * * php artisan schedule:run >> /dev/null 2>&1`
