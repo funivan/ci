@@ -5,6 +5,7 @@
 - `php artisan migrate:refresh`
 - edit configuration file `ci.app.php`
 - add to cron ` * * * * * php artisan schedule:run >> /dev/null 2>&1`
+- clone your repository to `build` directory. You can change location inside `ci.app.php`
 
 # Manual usage
 - add commit to the queue `php artisan ci:add-commit master 0270966ad4a47e73c1ffcd28f5895b74da1b205f dev@funivan.com`

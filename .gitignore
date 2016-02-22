@@ -8,3 +8,4 @@ Homestead.json
 /.idea
 /logs/*
 !/logs/.gitkeep
+/build
