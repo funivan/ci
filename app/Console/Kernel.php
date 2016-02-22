@@ -13,7 +13,9 @@
      * @var array
      */
     protected $commands = [
+      Commands\AddCommit::class,
       Commands\Check::class,
+      Commands\Scheduler::class,
     ];
 
 
@@ -24,7 +26,7 @@
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-      $schedule->command('ci:check')
+      $schedule->command('ci:demonize')
         ->everyMinute();
     }
   }

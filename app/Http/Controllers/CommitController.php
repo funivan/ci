@@ -11,8 +11,8 @@
       $build = new Commit();
       $build->branch = request('branch');
       $build->status = Commit::STATUS_PENDING;
-      $build->hash = request('commit');
-      $build->author = request('committer');
+      $build->hash = request('hash');
+      $build->author = request('author');
       $build->start_time = time();
       $build->end_time = 0;
       $build->save();

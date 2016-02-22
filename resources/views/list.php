@@ -14,38 +14,41 @@
   </head>
   <body>
     <div class="container">
+      <? if (count($commits) > 0) { ?>
+        <table class="highlight">
+          <? /** @var \App\Models\Commit[] $commits */ ?>
+          <? foreach ($commits as $commit) { ?>
+            <tr>
+              <td style="cursor: pointer;" title="<?= $commit->hash; ?>">
+                <?= $commit->id; ?>
+              </td>
+              <td>
+                <?= $commit->author; ?>
+              </td>
+              <td>
+                <?= DateTime::createFromFormat('U', $commit->start_time)->format('Y-m-d H:i'); ?>
+              </td>
+              <td style="cursor: pointer;" title="<?= $commit->getStatusText(); ?>">
+                <? if ($commit->status == \App\Models\Commit::STATUS_OK) { ?>
+                  <i style="color:green" class="small material-icons">thumb_up</i>
+                <? } elseif ($commit->status == \App\Models\Commit::STATUS_IN_PROGRESS) { ?>
+                  <i style="color:blue" class="small material-icons">play_for_work</i>
+                <? } elseif ($commit->status == \App\Models\Commit::STATUS_PENDING) { ?>
+                  <i style="color:gray" class="small material-icons">input</i>
+                <? } elseif ($commit->status == \App\Models\Commit::STATUS_FAILURE) { ?>
+                  <i style="color:red" class="small material-icons">thumb_down</i>
+                <? } ?>
+              </td>
+              <td>
+                <a href="/view/<?= $commit->id ?>">log</a>
+              </td>
+            </tr>
+          <? } ?>
 
-      <table class="highlight">
-        <? /** @var \App\Models\Commit[] $commits */ ?>
-        <? foreach ($commits as $commit) { ?>
-          <tr>
-            <td style="cursor: pointer;" title="<?= $commit->hash; ?>">
-              <?= $commit->id; ?>
-            </td>
-            <td>
-              <?= $commit->author; ?>
-            </td>
-            <td>
-              <?= DateTime::createFromFormat('U', $commit->start_time)->format('Y-m-d H:i'); ?>
-            </td>
-            <td style="cursor: pointer;" title="<?= $commit->getStatusText(); ?>">
-              <? if ($commit->status == \App\Models\Commit::STATUS_OK) { ?>
-                <i style="color:green" class="small material-icons">thumb_up</i>
-              <? } elseif ($commit->status == \App\Models\Commit::STATUS_IN_PROGRESS) { ?>
-                <i style="color:blue" class="small material-icons">play_for_work</i>
-              <? } elseif ($commit->status == \App\Models\Commit::STATUS_PENDING) { ?>
-                <i style="color:gray" class="small material-icons">input</i>
-              <? } elseif ($commit->status == \App\Models\Commit::STATUS_FAILURE) { ?>
-                <i style="color:red" class="small material-icons">thumb_down</i>
-              <? } ?>
-            </td>
-            <td>
-              <a href="/view/<?= $commit->id ?>">log</a>
-            </td>
-          </tr>
-        <? } ?>
-
-      </table>
+        </table>
+      <? } else { ?>
+        <h4>No commits</h4>
+      <? } ?>
     </div>
 
   </body>

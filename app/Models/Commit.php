@@ -24,6 +24,9 @@
 
     const STATUS_FAILURE = 4;
 
+    /**
+     * @inheritDoc
+     */
     protected $table = 'commit';
 
 
@@ -35,6 +38,10 @@
     }
 
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     public function getStatusText() {
       $map = [
         1 => 'pending',
