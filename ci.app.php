@@ -22,15 +22,7 @@
   | Run this script for testing
   |--------------------------------------------------------------------------
   */
-  config([
-      'ci.commands' =>
-        [
-          'composer install -vvv',
-          './vendor/bin/phpunit --stop-on-error',
-        ],
-    ]
-  );
-
+  config(['ci.defaultProfile' => 'test']);
   /*
   |--------------------------------------------------------------------------
   | Path to logs dir

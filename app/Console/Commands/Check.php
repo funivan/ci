@@ -4,7 +4,6 @@
 
   use App\Models\Commit;
   use Illuminate\Console\Command;
-  use Monolog\Logger;
 
   /**
    * @package App\Console\Commands
@@ -16,7 +15,7 @@
      *
      * @var string
      */
-    protected $signature = 'ci:check  {hash}';
+    protected $signature = 'ci:check {--profile?} {hash}';
 
     /**
      * The console command description.
@@ -24,16 +23,6 @@
      * @var string
      */
     protected $description = 'Check specific commit';
-
-    /**
-     * @var Logger
-     */
-    private $loger = null;
-
-    /**
-     * @var string
-     */
-    private $repoPath;
 
 
     /**

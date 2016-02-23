@@ -7,6 +7,7 @@
   use Monolog\Handler\StreamHandler;
   use Monolog\Logger;
   use Symfony\Component\Process\Process;
+  use Symfony\Component\Yaml\Parser;
 
 
   /**
@@ -121,13 +122,31 @@
      * @throws \Exception
      */
     private function runTests() {
+      $filePath = $this->repositoryPath . '/ci.yml';
 
-      # run script
-      $checkCommands = config('ci.commands');
-      if (empty($checkCommands)) {
-        throw new \Exception('Provide at least 1 command to check your project');
+      if (!is_file($filePath)) {
+        throw new \Exception('Cant detect ci.yml configuration file');
       }
 
+      $parser = new Parser();
+      $value = $parser->parse(file_get_contents($filePath));
+
+      if (empty($value['profiles'])) {
+        throw new \Exception('Invalid configuration format');
+      }
+
+      $name = config('ci.defaultProfile');
+      if (empty($name)) {
+        throw new \Exception('Empty default profile name. Edit ci.app.php');
+      }
+
+      if (empty($value['profiles'][$name])) {
+        throw new \Exception('Empty default profile configuration');
+      }
+
+
+      /** @var array $checkCommands */
+      $checkCommands = (array) $value['profiles'][$name];
       foreach ($checkCommands as $command) {
         $this->command($command);
       }
