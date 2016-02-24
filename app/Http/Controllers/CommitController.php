@@ -32,7 +32,7 @@
      * @return \Illuminate\Contracts\Routing\ResponseFactory
      */
     public function showBuildList() {
-      $commits = Commit::query()->getQuery()->forPage(1, 20)->orderBy('id', 'desc')->get();
+      $commits = Commit::query()->forPage(1, 20)->orderBy('id', 'desc')->get()->all();
       return view('list', ['commits' => $commits]);
     }
 
