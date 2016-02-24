@@ -33,7 +33,8 @@
      */
     public function handle() {
 
-      $commit = Commit::where('status', '=', Commit::STATUS_PENDING)->get()->get(0);
+      /** @var Commit $commit */
+      $commit = Commit::query()->where('status', '=', Commit::STATUS_PENDING)->get()->first();
       if (empty($commit)) {
         $this->getOutput()->writeln('done');
         return;

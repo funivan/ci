@@ -30,10 +30,10 @@
      * @throws \Exception
      */
     public function handle() {
-      /** @var Commit $commit */
       $hash = $this->argument('hash');
 
-      $commit = Commit::where('hash', '=', $hash)->get()->get(0);
+      /** @var Commit $commit */
+      $commit = Commit::query()->where('hash', '=', $hash)->get()->first();
       if (empty($commit)) {
         $this->getOutput()->writeln('<error>Cant find commit with hash:' . $hash . '</error>');
         return;

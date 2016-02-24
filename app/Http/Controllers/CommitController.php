@@ -5,8 +5,15 @@
   use App\Http\Requests;
   use App\Models\Commit;
 
+  /**
+   *
+   * @package App\Http\Controllers
+   */
   class CommitController extends Controller {
 
+    /**
+     * @return \Illuminate\Contracts\Routing\ResponseFactory
+     */
     public function addBuild() {
       $build = new Commit();
       $build->branch = request('branch');
@@ -21,14 +28,22 @@
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\Routing\ResponseFactory
+     */
     public function showBuildList() {
-      $commits = Commit::all();
+      $commits = Commit::query()->getQuery()->forPage(1, 20)->orderBy('id', 'desc')->get();
       return view('list', ['commits' => $commits]);
     }
 
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory
+     * @throws \Exception
+     */
     public function viewLog($id) {
-      $commit = Commit::where('id', '=', $id)->get()->get(0);
+      $commit = Commit::query()->where('id', '=', $id)->get()->first();
       if (empty($commit)) {
         throw new \Exception('Invalid commit id: ' . $id);
       }
