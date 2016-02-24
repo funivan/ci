@@ -57,4 +57,15 @@
       return $map[$this->status];
     }
 
+
+    /**
+     * @return int|string
+     */
+    public function getFormattedStartTime() {
+      if (empty($this->start_time)) {
+        return 0;
+      }
+      return \DateTime::createFromFormat('U', $this->start_time)->format('Y-m-d H:i');
+    }
+
   }

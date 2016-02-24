@@ -14,6 +14,7 @@
   </head>
   <body>
     <div class="container">
+      <? /** @var \App\Models\Commit[] $commits */ ?>
       <? if (count($commits) > 0) { ?>
         <table class="highlight">
           <? /** @var \App\Models\Commit[] $commits */ ?>
@@ -26,7 +27,7 @@
                 <?= $commit->author; ?>
               </td>
               <td>
-                <?= DateTime::createFromFormat('U', $commit->start_time)->format('Y-m-d H:i'); ?>
+                <?= $commit->getFormattedStartTime(); ?>
               </td>
               <td style="cursor: pointer;" title="<?= $commit->getStatusText(); ?>">
                 <? if ($commit->status == \App\Models\Commit::STATUS_OK) { ?>
