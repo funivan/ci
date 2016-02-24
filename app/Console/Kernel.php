@@ -26,7 +26,7 @@
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-      $schedule->command('ci:demonize')
+      $schedule->command('ci:scheduler')
         ->everyMinute();
     }
   }
