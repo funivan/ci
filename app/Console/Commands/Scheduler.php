@@ -33,12 +33,20 @@
      */
     public function handle() {
 
+      /** @var Commit $inProgressCommit */
+      $inProgressCommit = Commit::query()->where('status', '=', Commit::STATUS_IN_PROGRESS)->get()->first();
+      if (!empty($inProgressCommit)) {
+        $this->getOutput()->writeln('Already check commit: ' . $inProgressCommit->hash);
+        return;
+      }
+
       /** @var Commit $commit */
       $commit = Commit::query()->where('status', '=', Commit::STATUS_PENDING)->get()->first();
       if (empty($commit)) {
         $this->getOutput()->writeln('done');
         return;
       }
+
 
       $checker = new \App\Checker\ScheduledCommitChecker();
       $checker->check($commit);
