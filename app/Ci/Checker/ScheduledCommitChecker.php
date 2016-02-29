@@ -1,6 +1,6 @@
 <?php
 
-  namespace App\Checker;
+  namespace App\Ci\Checker;
 
   use App\Ci\Config;
   use App\Models\Commit;

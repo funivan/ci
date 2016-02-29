@@ -48,7 +48,7 @@
       }
 
 
-      $checker = new \App\Checker\ScheduledCommitChecker();
+      $checker = new \App\Ci\Checker\ScheduledCommitChecker();
       $checker->check($commit);
     }
   }

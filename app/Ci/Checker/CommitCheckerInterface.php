@@ -1,6 +1,6 @@
 <?php
 
-  namespace App\Checker;
+  namespace App\Ci\Checker;
 
   /**
    * @author Ivan Shcherbak <dev@funivan.com> 2016
