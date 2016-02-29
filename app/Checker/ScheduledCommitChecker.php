@@ -2,12 +2,12 @@
 
   namespace App\Checker;
 
+  use App\Ci\Config;
   use App\Models\Commit;
   use Monolog\Formatter\JsonFormatter;
   use Monolog\Handler\StreamHandler;
   use Monolog\Logger;
   use Symfony\Component\Process\Process;
-  use Symfony\Component\Yaml\Parser;
 
 
   /**
@@ -68,7 +68,7 @@
         }
 
 
-        $this->runTests();
+        $this->runTests($commit);
 
         $result = true;
 
@@ -119,34 +119,32 @@
 
 
     /**
+     * @param Commit $commit
      * @throws \Exception
      */
-    private function runTests() {
+    private function runTests(Commit $commit) {
       $filePath = $this->repositoryPath . '/ci.yml';
 
       if (!is_file($filePath)) {
         throw new \Exception('Cant detect ci.yml configuration file');
       }
 
-      $parser = new Parser();
-      $value = $parser->parse(file_get_contents($filePath));
+      $config = Config::createFromString(file_get_contents($filePath), $commit);
 
-      if (empty($value['profiles'])) {
-        throw new \Exception('Invalid configuration format');
-      }
-
+      /** @var string $name */
       $name = config('ci.defaultProfile');
       if (empty($name)) {
         throw new \Exception('Empty default profile name. Edit ci.app.php');
       }
 
-      if (empty($value['profiles'][$name])) {
+      $profiles = $config->getProfiles();
+      if (empty($profiles[$name])) {
         throw new \Exception('Empty default profile configuration');
       }
 
 
       /** @var array $checkCommands */
-      $checkCommands = (array) $value['profiles'][$name];
+      $checkCommands = (array) $profiles[$name];
       foreach ($checkCommands as $command) {
         $this->command($command);
       }

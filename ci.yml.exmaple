@@ -4,4 +4,4 @@ profiles :
     - ./vendor/bin/phpunit --stop-on-error
   validation :
     - composer install
-    - ./vendor/bin/phpunit otherDir
+    - ./custom-tool.sh %commit.hash%
