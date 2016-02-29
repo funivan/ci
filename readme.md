@@ -66,7 +66,11 @@ fi
 # For developers
 - clone this repository
 - run `touch database/database.sqlite`
-- create `.env` file with the following code `APP_DEBUG = true`
+- create `.env` file with the following code
+```
+  APP_ENV = dev
+  APP_DEBUG = true
+```
 - run `php artisan migrate:refresh`
 - start server `php -S 127.0.0.1:8080 server.php`
 - open `http://127.0.0.1:8080/`
