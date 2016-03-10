@@ -16,6 +16,7 @@
       Commands\AddCommit::class,
       Commands\Check::class,
       Commands\Scheduler::class,
+      Commands\Rebuild::class,
     ];
 
 
