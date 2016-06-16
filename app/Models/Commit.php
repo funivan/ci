@@ -39,6 +39,18 @@
 
 
     /**
+     * @inheritdoc
+     */
+    public function delete() {
+      $file = $this->getLogFilePath();
+      if (is_file($file)) {
+        unlink($file);
+      }
+      return parent::delete();
+    }
+
+
+    /**
      * @return string
      * @throws \Exception
      */

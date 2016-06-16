@@ -18,6 +18,7 @@
       Commands\Scheduler::class,
       Commands\Rebuild::class,
       Commands\CleanLogs::class,
+      Commands\CleanBuilds::class,
     ];
 
 
@@ -33,5 +34,9 @@
 
       $schedule->command('ci:clean-logs')
         ->everyThirtyMinutes();
+
+      $schedule->command('ci:clean-builds')
+        ->twiceDaily();
+
     }
   }

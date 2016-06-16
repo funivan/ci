@@ -5,19 +5,19 @@
   use App\Models\Commit;
   use Illuminate\Console\Command;
 
-  class CleanLogs extends Command {
+  class CleanBuilds extends Command {
 
-    const DAYS = 10;
-
-    /**
-     * @var string
-     */
-    protected $signature = 'ci:clean-logs {--dry-run}';
+    const DAYS = 60;
 
     /**
      * @var string
      */
-    protected $description = 'Clean old logs';
+    protected $signature = 'ci:clean-builds {--dry-run}';
+
+    /**
+     * @var string
+     */
+    protected $description = 'Clean old build';
 
 
     /**
@@ -28,23 +28,16 @@
       $builder = Commit::query();
       $builder->where('end_time', '<', time() - (self::DAYS * 24 * 3600));
       $builder->where('end_time', '!=', '0');
-
       $commits = $builder->get();
       /** @var Commit $commit */
       foreach ($commits as $commit) {
-        $file = $commit->getLogFilePath();
-
 
         if ($this->option('dry-run')) {
-          $this->comment('Remove:' . $file);
+          $this->comment('Remove:' . $commit->id);
           continue;
         }
 
-        if (is_file($file)) {
-          $this->info('Remove:' . $file);
-          unlink($file);
-        }
-
+        $this->info('Remove:' . $commit->id);
       }
 
     }
