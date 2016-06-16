@@ -38,6 +38,7 @@
         }
 
         $this->info('Remove:' . $commit->id);
+        $commit->delete();
       }
 
     }
