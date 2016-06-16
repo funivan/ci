@@ -17,6 +17,7 @@
       Commands\Check::class,
       Commands\Scheduler::class,
       Commands\Rebuild::class,
+      Commands\CleanLogs::class,
     ];
 
 
@@ -29,5 +30,8 @@
     protected function schedule(Schedule $schedule) {
       $schedule->command('ci:scheduler')
         ->everyMinute();
+
+      $schedule->command('ci:clean-logs')
+        ->everyThirtyMinutes();
     }
   }
