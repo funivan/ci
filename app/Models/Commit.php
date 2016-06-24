@@ -80,4 +80,9 @@
       return \DateTime::createFromFormat('U', $this->start_time)->format('Y-m-d H:i');
     }
 
+
+    public function getAuthorGravatarUrl(int $size = 16) : string {
+      return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->author))) . "?s=" . $size;
+    }
+
   }

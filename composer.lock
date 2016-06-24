@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9ccc9b65c8554742d8d55326f62d42fb",
-    "content-hash": "5617c4f738b9ea97a6b12b07053f4a5f",
+    "hash": "d2f6c4cc5ca4c2ae1a04daa5dd08d603",
+    "content-hash": "9b9df3b43263163c2b66dee97459027c",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -160,6 +160,51 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "franzl/laravel-plates",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/franzliedke/laravel-plates.git",
+                "reference": "8cf885219f947fdd608abb533821880362fece35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/franzliedke/laravel-plates/zipball/8cf885219f947fdd608abb533821880362fece35",
+                "reference": "8cf885219f947fdd608abb533821880362fece35",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5",
+                "illuminate/view": "~5",
+                "league/plates": "~3.1",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.2",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Franzl\\LaravelPlates\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Franz Liedke",
+                    "email": "franz@develophp.org"
+                }
+            ],
+            "description": "The powerful native PHP templating system Plates for Laravel.",
+            "time": "2015-02-08 22:51:49"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -517,6 +562,58 @@
                 "storage"
             ],
             "time": "2015-12-19 20:16:43"
+        },
+        {
+            "name": "league/plates",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/plates.git",
+                "reference": "2d8569e9f140a70d6a05db38006926f7547cb802"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/plates/zipball/2d8569e9f140a70d6a05db38006926f7547cb802",
+                "reference": "2d8569e9f140a70d6a05db38006926f7547cb802",
+                "shasum": ""
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "~1.4.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Plates\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Reinink",
+                    "email": "jonathan@reinink.ca",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Plates, the native PHP template system that's fast, easy to use and easy to extend.",
+            "homepage": "http://platesphp.com",
+            "keywords": [
+                "league",
+                "package",
+                "templates",
+                "templating",
+                "views"
+            ],
+            "time": "2015-07-09 02:14:40"
         },
         {
             "name": "monolog/monolog",
