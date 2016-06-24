@@ -62,7 +62,13 @@
       }
 
       fclose($resource);
-      return view('log', ['lines' => $lines]);
+      return view(
+        'log',
+        [
+          'commit' => $commit,
+          'lines' => $lines
+        ]
+      );
     }
 
   }
