@@ -2,7 +2,6 @@
 
   namespace App\Http\Controllers;
 
-  use App\Http\Requests;
   use App\Models\Commit;
 
   /**
@@ -14,7 +13,7 @@
     /**
      * @return \Illuminate\Contracts\Routing\ResponseFactory
      */
-    public function addBuild() {
+    public function addCommit() {
       $build = new Commit();
       $build->status = Commit::STATUS_PENDING;
       $build->hash = request('hash');
@@ -48,9 +47,32 @@
       }
 
 
-      $lines = [];
       /** @var Commit $commit */
-      $resource = fopen($commit->getLogFilePath(), 'r');
+      $lines = [];
+      $lines = $this->getLogLines($commit, $lines);
+
+      return view(
+        'log',
+        [
+          'commit' => $commit,
+          'lines' => $lines,
+        ]
+      );
+    }
+
+
+    /**
+     * @param $commit
+     * @return array
+     */
+    private function getLogLines(Commit $commit) {
+      $lines = [];
+
+      $filePath = $commit->getLogFilePath();
+      if (!is_file($filePath)) {
+        return $lines;
+      }
+      $resource = fopen($filePath, 'r');
       while (!feof($resource)) {
         $line = fgets($resource);
         $data = json_decode($line);
@@ -61,13 +83,8 @@
       }
 
       fclose($resource);
-      return view(
-        'log',
-        [
-          'commit' => $commit,
-          'lines' => $lines
-        ]
-      );
+
+      return $lines;
     }
 
   }

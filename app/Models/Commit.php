@@ -9,7 +9,7 @@
    * @property int $status
    * @property string $hash
    * @property string $branch
-   * @property string $author
+   * @property string $author_email
    * @property integer $start_time
    * @property integer $message
    * @property integer $end_time
@@ -82,7 +82,7 @@
 
 
     public function getAuthorGravatarUrl(int $size = 16) : string {
-      return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->author))) . "?s=" . $size;
+      return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->author_email))) . "?s=" . $size;
     }
 
   }

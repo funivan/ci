@@ -5,14 +5,14 @@
   use App\Models\Commit;
   use Illuminate\Console\Command;
 
-  class CleanBuilds extends Command {
+  class CleanCommits extends Command {
 
     const DAYS = 60;
 
     /**
      * @var string
      */
-    protected $signature = 'ci:clean-builds {--dry-run}';
+    protected $signature = 'ci:clean-commits {--dry-run}';
 
     /**
      * @var string

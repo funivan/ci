@@ -40,6 +40,9 @@
 </h3>
 
 <div class="log">
+  <? if (empty($lines)) { ?>
+    Build in progress
+  <? } ?>
   <? foreach ($lines as $line) { ?>
     <div class="log-message level-<?= $line->level_name ?>">
       <?= nl2br($line->message) ?>

@@ -12,7 +12,7 @@
      *
      * @var string
      */
-    protected $signature = 'ci:add-commit {branch} {hash} {author}';
+    protected $signature = 'ci:add-commit {branch} {hash}';
 
     /**
      * The console command description.
@@ -29,10 +29,9 @@
      */
     public function handle() {
       $commit = new Commit();
-      $commit->branch = $this->argument('branch');
       $commit->status = Commit::STATUS_PENDING;
+      $commit->branch = $this->argument('branch');
       $commit->hash = $this->argument('hash');
-      $commit->author = $this->argument('author');
       $commit->start_time = time();
       $commit->end_time = 0;
       $commit->save();

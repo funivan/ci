@@ -92,7 +92,7 @@
       <tr>
         <td class="info">
           <img src="<?= $commit->getAuthorGravatarUrl(36) ?>" alt="" class="z-depth-1">
-          <div class="author truncate"><?= $commit->author ?></div>
+          <div class="author truncate"><?= $commit->author_email ?></div>
           <div class="date truncate"><?= $commit->getFormattedStartTime() ?></div>
         </td>
         <td class="branch">

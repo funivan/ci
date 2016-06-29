@@ -50,7 +50,7 @@ trigger_hook() {
         MESSAGE=$(git log -1 "$NEWREV" --pretty=format:%s)
 
         echo "Sending webhook"
-        curl "http://$SERVER_URL/add-build?hash=$NEWREV&author=$COMMITTER&branch=$BRANCH&message=$MESSAGE"
+        curl "http://$SERVER_URL/add-commit?hash=$NEWREV$branch=$BRANCH"
 }
 
 if [ -n "$1" -a -n "$2" -a -n "$3" ]; then
@@ -69,7 +69,6 @@ fi
 - create `.env` file with the following code
 ```
   APP_ENV = dev
-  APP_DEBUG = true
 ```
 - run `php artisan migrate:refresh`
 - start server `php -S 127.0.0.1:8080 server.php`

@@ -65,7 +65,8 @@
         $commitId = $this->command('git rev-parse HEAD');
 
         $commit->message = trim($this->command('git log --format=%s -n 1 ' . $commitId));
-        $commit->author = trim($this->command('git log --format=%ae -n 1 ' . $commitId));
+        $commit->author_email = trim($this->command('git log --format=%ae -n 1 ' . $commitId));
+        $commit->author_name = trim($this->command('git log --format=%an -n 1 ' . $commitId));
 
         $commit->save();
 
