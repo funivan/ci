@@ -33,6 +33,10 @@
     public function check(\App\Models\Commit $commit) {
       $file = $commit->getLogFilePath();
 
+      if (is_file($file)) {
+        unlink($file);
+      }
+
       # create a log channel
       $log = new Logger('name');
       $stream = new StreamHandler($file, config('ci.logLevel'));
