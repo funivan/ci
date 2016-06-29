@@ -15,7 +15,7 @@ use Illuminate\Routing\Router;
 
 Route::get('/', 'CommitController@showBuildList');
 Route::get('/view/{id}', 'CommitController@viewLog');
-Route::match(['get', 'post'], '/add-build', 'CommitController@addBuild');
+Route::match(['get', 'post'], '/add-commit', 'CommitController@addCommit');
 
 /*
 |--------------------------------------------------------------------------
