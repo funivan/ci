@@ -14,11 +14,14 @@
      */
     protected $commands = [
       Commands\AddCommit::class,
+
       Commands\Check::class,
-      Commands\Scheduler::class,
-      Commands\Rebuild::class,
+      Commands\DeleteCommit::class,
+      Commands\Rerun::class,
+
       Commands\CleanLogs::class,
       Commands\CleanCommits::class,
+      Commands\Scheduler::class,
     ];
 
 
