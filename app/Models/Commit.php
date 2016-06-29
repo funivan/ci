@@ -34,7 +34,7 @@
      * @return string
      */
     public function getLogFilePath() {
-      return config('ci.logs') . '/' . $this->id . '-' . $this->hash . '/base.log';
+      return config('ci.logs') . '/' . $this->id . '-' . $this->hash . '-check.log';
     }
 
 
