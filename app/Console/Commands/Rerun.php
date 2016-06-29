@@ -12,7 +12,7 @@
      *
      * @var string
      */
-    protected $signature = 'ci:rerun';
+    protected $signature = 'ci:rerun {id}';
 
     /**
      * The console command description.
