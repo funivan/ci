@@ -61,9 +61,12 @@
 
         # navigate to specific commit
         $this->command('git fetch --all && git reset --hard origin/' . $commit->branch . ' && git checkout ' . $commit->hash);
+
         $commitId = $this->command('git rev-parse HEAD');
-        $commitMessage = trim($this->command('git log --format=%B -n 1 ' . $commitId));
-        $commit->message = $commitMessage;
+
+        $commit->message = trim($this->command('git log --format=%s -n 1 ' . $commitId));
+        $commit->author = trim($this->command('git log --format=%ae -n 1 ' . $commitId));
+
         $commit->save();
 
         if (trim($commitId) != $commit->hash) {

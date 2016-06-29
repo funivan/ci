@@ -16,10 +16,9 @@
      */
     public function addBuild() {
       $build = new Commit();
-      $build->branch = request('branch');
       $build->status = Commit::STATUS_PENDING;
       $build->hash = request('hash');
-      $build->author = request('author');
+      $build->branch = request('branch');
       $build->start_time = time();
       $build->end_time = 0;
       $build->save();
