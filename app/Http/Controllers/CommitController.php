@@ -18,6 +18,7 @@
       $build->status = Commit::STATUS_PENDING;
       $build->hash = request('hash');
       $build->branch = request('branch');
+      $build->profile = request('profile', '');
       $build->start_time = time();
       $build->end_time = 0;
       $build->save();
