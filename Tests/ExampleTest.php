@@ -1,4 +1,5 @@
-<?php
+<?
+
   namespace Tests;
 
   class ExampleTest extends \Tests\TestCase {
@@ -9,7 +10,7 @@
      * @return void
      */
     public function testBasicExample() {
-      $this->visit('/')
-        ->see('No commits');
+      $this->visit('/');
+      self::assertPageLoaded('/');
     }
   }
