@@ -4,6 +4,7 @@
   use App\Ci\Commands\ShellCommand;
 
   /** @var \App\Ci\Configuration\RunConfig $runConfig */
+  $commit = $runConfig->getCommit();
 
   $config = new \App\Ci\Configuration\BaseConfig();
 
@@ -12,4 +13,6 @@
   $testProfile->addCommand(new ShellCommand('composer install'));
   $testProfile->addCommand(new ShellCommand('./vendor/bin/phpunit --stop-on-error'));
 
-  $testProfile->onFailure(new MailCommand($commit->author_email, 'Build failure', 'See:' . route('viewCommitInfo', ['id'=>$runConfig->getCommit()->id])));
+  $testProfile->onFailure(new MailCommand($commit->author_email, 'Build failure', 'See:' . route('viewCommitInfo', ['id' => $commit->id])));
+
+  return $config;
