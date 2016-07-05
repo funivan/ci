@@ -7,19 +7,32 @@
    */
   class MailCommand extends BaseCommand {
 
-    private $to = null;
+    /**
+     * @var  string
+     */
+    private $to;
+
+    /**
+     * @var string
+     */
+    private $subject;
+
+    /**
+     * @var string
+     */
+    private $body;
 
 
-    private $subject = null;
-
-    private $body = null;
+    public function __construct(string $to, string $subject, string $body) {
+      $this->to = $to;
+      $this->subject = $subject;
+      $this->body = $body;
+    }
 
 
     public function execute() {
 
-      $this->getRunConfig()->getLogger()->debug(
-        sprintf('Send email %s to %s', $this->subject, $this->to)
-      );
+      $this->getRunConfig()->getLogger()->debug('Send email ' . $this->subject . ' to ' . $this->to);
 
       $result = mail($this->to, $this->subject, $this->body);
       if ($result === false) {
