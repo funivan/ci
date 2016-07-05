@@ -34,7 +34,7 @@
 </style>
 
 <h3 class="crumbs">
-  <a href="/" style="margin-right: 1rem;">&larr;</a>
+  <a href="<?= route('index') ?>" style="margin-right: 1rem;">&larr;</a>
   <?= $commit->message ?>
   <span class="chip" style="vertical-align: middle;"><?= $commit->hash ?></span>
 </h3>
