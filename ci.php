@@ -11,7 +11,7 @@
   $testProfile = $config->createProfile('test');
 
   $testProfile->addCommand(new ShellCommand('composer install'));
-  $testProfile->addCommand(new ShellCommand('./vendor/bin/phpunit --stop-on-error'));
+  $testProfile->addCommand(new ShellCommand('./vendor/bin/phpunit --stop-on-error --tap'));
 
   $testProfile->onFailure(new MailCommand($commit->author_email, 'Build failure', 'See:' . route('viewCommitInfo', ['id' => $commit->id])));
 

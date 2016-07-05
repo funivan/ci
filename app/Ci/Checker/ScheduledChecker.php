@@ -83,7 +83,7 @@
 
       } finally {
 
-        $logger->emergency('end time:' . $commit->end_time);
+        $logger->info('end time:' . $commit->end_time);
 
         $commit->end_time = time();
         $commit->save();
