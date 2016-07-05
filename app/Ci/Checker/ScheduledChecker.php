@@ -3,28 +3,21 @@
   namespace App\Ci\Checker;
 
   use App\Ci\Commands\CommandExecutor;
+  use App\Ci\Commands\Internal\CheckProfileCommand;
   use App\Ci\Commands\Internal\GitCheckoutSpecificVersionCommand;
   use App\Ci\Commands\Internal\GitFetchCommitInfo;
   use App\Ci\Configuration\ConfigurationInterface;
   use App\Ci\Configuration\Profile\Profile;
   use App\Ci\Configuration\RunConfig;
-  use App\Ci\Configuration\RunConfigAwareInterface;
+  use App\Ci\Logger\LoggerFactory;
   use App\Models\Commit;
-  use Monolog\Formatter\JsonFormatter;
   use Monolog\Handler\HandlerInterface;
-  use Monolog\Handler\StreamHandler;
-  use Monolog\Logger;
 
 
   /**
    * @author Ivan Shcherbak <dev@funivan.com> 2016
    */
   class ScheduledChecker implements CheckerInterface {
-
-    /**
-     * @var Logger
-     */
-    private $logger;
 
 
     /**
@@ -33,31 +26,18 @@
      */
     public function check(\App\Models\Commit $commit, HandlerInterface $customLogHandler = null) {
 
-
-      $file = $commit->getLogFilePath();
-      if (is_file($file)) {
-        unlink($file);
-      }
-
-      # create a log channel
-      $this->logger = new Logger('commit.check');
-      $defaultLoggerStream = new StreamHandler($file, \Monolog\Logger::DEBUG);
-      $defaultLoggerStream->setFormatter(new JsonFormatter());
-      $this->logger->pushHandler($defaultLoggerStream);
-
+      $logger = LoggerFactory::createLogger($commit);
       if ($customLogHandler !== null) {
-        $this->logger->pushHandler($customLogHandler);
+        $logger->pushHandler($customLogHandler);
       }
 
+      $commit->setStartValues();
 
-      $commit->start_time = time();
-      $commit->end_time = 0;
-      $commit->status = Commit::STATUS_IN_PROGRESS;
-      $commit->save();
+      $logger->debug('start time:' . $commit->start_time);
 
-      $this->logger->debug('start time:' . $commit->start_time);
 
-      $profile = null;
+      $commandExecutor = new CommandExecutor();
+
       try {
 
 
@@ -72,60 +52,41 @@
         }
 
 
-        $runConfiguration = new RunConfig($commit, $this->logger, $repositoryPath);
+        $runConfiguration = new RunConfig($commit, $logger, $repositoryPath);
 
 
-        $commandExecutor = new CommandExecutor();
         $commandExecutor->execute(new GitCheckoutSpecificVersionCommand(), $runConfiguration);
         $commandExecutor->execute(new GitFetchCommitInfo(), $runConfiguration);
-
 
         $config = $this->createConfig($runConfiguration);
 
 
         foreach ($config->getLogHandlers() as $handler) {
-          $this->logger->pushHandler($handler);
+          $logger->pushHandler($handler);
         }
 
 
         $profile = $this->getProfile($commit, $config);
-        if ($profile instanceof RunConfigAwareInterface) {
-          $profile->setRunConfig($runConfiguration);
-        }
 
+        $command = new CheckProfileCommand($profile, $commandExecutor);
 
+        $commandExecutor->execute($command, $runConfiguration);
 
-
-        foreach ($profile->getCommands() as $command) {
-          $commandExecutor->execute($command, $runConfiguration);
-        }
-
-        $result = true;
-
-        $profile->fireSuccess();
-
+        $commit->status = Commit::STATUS_OK;
+        $logger->info('status: ok');
       } catch (\Exception $ex) {
 
-        $this->logger->emergency('exception:' . $ex->getMessage());
+        $commit->status = Commit::STATUS_FAILURE;
+        $logger->emergency('exception:' . $ex->getMessage());
+        $logger->emergency('status: failure');
         throw $ex;
 
       } finally {
 
+        $logger->emergency('end time:' . $commit->end_time);
+
         $commit->end_time = time();
-
-        if (isset($result)) {
-          $commit->status = Commit::STATUS_OK;
-          $this->logger->info('status: ok');
-        } else {
-          $commit->status = Commit::STATUS_FAILURE;
-          $this->logger->emergency('status: failure');
-        }
-        $this->logger->emergency('end time:' . $commit->end_time);
         $commit->save();
-
-        if ($profile instanceof Profile) {
-          $profile->fireFailure();
-        }
 
       }
 

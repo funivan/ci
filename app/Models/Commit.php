@@ -86,4 +86,12 @@
       return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->author_email))) . "?s=" . $size;
     }
 
+
+    public function setStartValues() {
+      $this->start_time = time();
+      $this->end_time = 0;
+      $this->status = Commit::STATUS_IN_PROGRESS;
+      $this->save();
+    }
+
   }

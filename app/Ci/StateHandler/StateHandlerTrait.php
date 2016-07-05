@@ -33,17 +33,13 @@
     }
 
 
-    public function fireFailure() {
-      foreach ($this->failHandlers as $failHandler) {
-        $failHandler->execute();
-      }
+    public function getFailureHandlers() {
+      return $this->failHandlers;
     }
 
 
-    public function fireSuccess() {
-      foreach ($this->successHandlers as $successHandler) {
-        $successHandler->execute();
-      }
+    public function getSuccessHandlers() {
+      return $this->successHandlers;
     }
 
   }

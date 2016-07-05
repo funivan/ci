@@ -20,9 +20,14 @@
       if ($command instanceof StateHandlerInterface) {
         try {
           $command->execute();
-          $command->fireSuccess();
+          foreach ($command->getSuccessHandlers() as $successHandler) {
+            $this->execute($successHandler, $config);
+          }
+
         } catch (\Exception $e) {
-          $command->fireFailure();
+          foreach ($command->getFailureHandlers() as $failureHandler) {
+            $this->execute($failureHandler, $config);
+          }
           throw $e;
         }
         return;

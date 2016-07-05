@@ -15,9 +15,9 @@
     public function onSuccess(CommandInterface $command);
 
 
-    public function fireFailure();
+    public function getFailureHandlers();
 
 
-    public function fireSuccess();
+    public function getSuccessHandlers();
 
   }
