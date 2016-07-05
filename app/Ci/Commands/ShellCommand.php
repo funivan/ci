@@ -34,17 +34,20 @@
 
 
     public function execute() {
+      $logger = $this->getRunConfig()->getLogger();
+
       $this->process = new Process($this->command);
+      $logger->info('Start command:' . $this->command);
       $this->process->setTimeout($this->timeout);
       $this->process->setWorkingDirectory($this->getRunConfig()->getRepositoryDirectory());
       $this->process->run();
 
 
       $output = trim($this->process->getOutput());
-      $this->getRunConfig()->getLogger()->info($output);
+      $logger->info($output);
 
       if (!$this->process->isSuccessful()) {
-        $this->getRunConfig()->getLogger()->emergency($this->process->getErrorOutput());
+        $logger->emergency($this->process->getErrorOutput());
         throw new \RuntimeException('Command not successful:' . $this->command);
       }
 
