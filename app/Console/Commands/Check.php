@@ -4,6 +4,9 @@
 
   use App\Models\Commit;
   use Illuminate\Console\Command;
+  use Monolog\Handler\PsrHandler;
+  use Symfony\Component\Console\Logger\ConsoleLogger;
+  use Symfony\Component\Console\Style\OutputStyle;
 
   /**
    * @package App\Console\Commands
@@ -15,7 +18,7 @@
      *
      * @var string
      */
-    protected $signature = 'ci:check {--profile?} {hash}';
+    protected $signature = 'ci:check {--id=}';
 
     /**
      * The console command description.
@@ -30,17 +33,25 @@
      * @throws \Exception
      */
     public function handle() {
-      $hash = $this->argument('hash');
+
+      $id = $this->option('id');
 
       /** @var Commit $commit */
-      $commit = Commit::query()->where('hash', '=', $hash)->get()->first();
+      $query = Commit::query();
+      $query = $query->where('id', '=', $id);
+      $commit = $query->get()->first();
+
       if (empty($commit)) {
-        $this->getOutput()->writeln('<error>Cant find commit with hash:' . $hash . '</error>');
+        $this->getOutput()->writeln('<error>Cant find commit:' . $id . '</error>');
         return;
       }
 
-      $checker = new \App\Ci\Checker\ScheduledCommitChecker();
-      $checker->check($commit);
+      $checker = new \App\Ci\Checker\ScheduledChecker();
+      /** @var OutputStyle $output */
+      $output = $this->getOutput();
+
+
+      $checker->check($commit, new PsrHandler(new ConsoleLogger($output)));
 
     }
 

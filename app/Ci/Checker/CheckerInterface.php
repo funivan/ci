@@ -5,7 +5,7 @@
   /**
    * @author Ivan Shcherbak <dev@funivan.com> 2016
    */
-  interface CommitCheckerInterface {
+  interface CheckerInterface {
 
     /**
      * @param \App\Models\Commit $commit

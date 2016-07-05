@@ -9,6 +9,7 @@
    * @property int $status
    * @property string $hash
    * @property string $branch
+   * @property string $profile
    * @property string $author_email
    * @property integer $start_time
    * @property integer $message

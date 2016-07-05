@@ -43,12 +43,13 @@
       /** @var Commit $commit */
       $commit = Commit::query()->where('status', '=', Commit::STATUS_PENDING)->get()->first();
       if (empty($commit)) {
-        $this->getOutput()->writeln('done');
+        $this->getOutput()->writeln('Done');
         return;
       }
 
 
-      $checker = new \App\Ci\Checker\ScheduledCommitChecker();
+      $checker = new \App\Ci\Checker\ScheduledChecker();
       $checker->check($commit);
     }
+
   }
