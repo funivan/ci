@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0",
+        "php": ">=5.6",
         "laravel/framework": "5.2.*",
         "monolog/monolog": "^1.17",
         "symfony/yaml": "^3.0",
