@@ -3,14 +3,14 @@
 - `cd ci`
 - `composer install`
 - `touch database/database.sqlite`
-- `php artisan migrate:refresh`
+- `php artisan migrate`
 - edit configuration file `ci.app.php`
 - add to cron ` * * * * * php artisan schedule:run >> /dev/null 2>&1`
 - clone your repository to `build` directory. You can change location inside `ci.app.php`
 
 # Manual usage
-- add commit to the queue `php artisan ci:add-commit master 0270966ad4a47e73c1ffcd28f5895b74da1b205f dev@funivan.com`
-- check commit `php artisan ci:check 0270966ad4a47e73c1ffcd28f5895b74da1b205f`
+- add commit to the queue `php artisan ci:add master 0270966ad4a47e73c1ffcd28f5895b74da1b205f dev@funivan.com`
+- check commit `php artisan ci:check 1`
 
 # How check commit automatically?
  Create git hook `post-receive`
@@ -71,5 +71,5 @@ fi
   APP_ENV = dev
 ```
 - run `php artisan migrate:refresh`
-- start server `php -S 127.0.0.1:8080 server.php`
-- open `http://127.0.0.1:8080/`
+- start server `./artisan serve`
+- open `http://localhost:8000/`

@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "funivan/ci",
+    "description": "Simple and fast CI server",
+    "keywords": ["CI"],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0",
         "laravel/framework": "5.2.*",
         "monolog/monolog": "^1.17",
         "symfony/yaml": "^3.0",
