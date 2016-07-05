@@ -10,21 +10,18 @@
   | and give it the controller to call when that URI is requested.
   |
   */
-  Route::group([
-    'domain' => config('ci.domain'),
-  ], function () {
 
-    Route::get('/', [
-      'as' => 'index',
-      'uses' => 'CommitController@showBuildList',
-    ]);
-    Route::get('/view/{id}', [
-      'as' => 'viewCommitInfo',
-      'uses' => 'CommitController@viewLog',
-    ]);
-    Route::match(['get', 'post'], '/add-commit', 'CommitController@addCommit');
 
-  });
+  Route::get('/', [
+    'as' => 'index',
+    'uses' => 'CommitController@showBuildList',
+  ]);
+  Route::get('/view/{id}', [
+    'as' => 'viewCommitInfo',
+    'uses' => 'CommitController@viewLog',
+  ]);
+  Route::match(['get', 'post'], '/add-commit', 'CommitController@addCommit');
+
 
   /*
   |--------------------------------------------------------------------------
