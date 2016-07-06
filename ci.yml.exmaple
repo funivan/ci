@@ -1,7 +1,0 @@
-profiles :
-  tests:
-    - composer install
-    - ./vendor/bin/phpunit --stop-on-error
-  validation :
-    - composer install
-    - ./custom-tool.sh %commit.hash%
