@@ -57,12 +57,9 @@
       color: #777;
     }
 
-    .commits-table .commit {
-
-    }
-
     .commits-table .commit .message {
       font-weight: bold;
+      max-width: 550px;
     }
 
     .commits-table .status {
