@@ -12,7 +12,7 @@
   }
 
   .level-INFO {
-    color: #BLACK;
+    color: #000;
   }
 
   .level-EMERGENCY {
@@ -38,6 +38,17 @@
   <?= $commit->message ?>
   <span class="chip" style="vertical-align: middle;"><?= $commit->hash ?></span>
 </h3>
+
+
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons">voicemail</i>
+  </a>
+  <ul>
+
+    <li><a class="btn-floating red" href="<?= route('retry', ['id' => $commit->id]) ?>" title="retry"><i class="material-icons">replay</i></a></li>
+  </ul>
+</div>
 
 <div class="log">
   <? if (empty($lines)) { ?>

@@ -20,6 +20,10 @@
     'as' => 'viewCommitInfo',
     'uses' => 'CommitController@viewLog',
   ]);
+  Route::get('/retry/{id}', [
+    'as' => 'retry',
+    'uses' => 'CommitController@retry',
+  ]);
   Route::match(['get', 'post'], '/add-commit', 'CommitController@addCommit');
 
 

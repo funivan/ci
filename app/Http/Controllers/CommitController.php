@@ -14,16 +14,30 @@
      * @return \Illuminate\Contracts\Routing\ResponseFactory
      */
     public function addCommit() {
-      $build = new Commit();
-      $build->status = Commit::STATUS_PENDING;
-      $build->hash = request('hash');
-      $build->branch = request('branch');
-      $build->profile = request('profile', '');
-      $build->start_time = time();
-      $build->end_time = 0;
-      $build->save();
+      $commit = new Commit();
+      $commit->status = Commit::STATUS_PENDING;
+      $commit->hash = request('hash');
+      $commit->branch = request('branch');
+      $commit->profile = request('profile', '');
+      $commit->start_time = time();
+      $commit->end_time = 0;
+      $commit->save();
 
-      return response(['id' => $build->id]);
+      return response(['id' => $commit->id]);
+    }
+
+
+    public function retry(int $id) {
+      $commit = Commit::query()->where('id', '=', $id)->get()->first();
+      if (empty($commit)) {
+        throw new \Exception('Invalid commit id: ' . $id);
+      }
+
+      /** @var Commit $commit */
+      $commit->status = Commit::STATUS_PENDING;
+      $commit->save();
+
+      return redirect(route('viewCommitInfo', ['id' => $commit->id]));
     }
 
 
@@ -73,7 +87,8 @@
       if (!is_file($filePath)) {
         return $lines;
       }
-      $resource = fopen($filePath, 'r');
+
+      $resource = fopen($filePath, 'br');
       while (!feof($resource)) {
         $line = fgets($resource);
         $data = json_decode($line);
