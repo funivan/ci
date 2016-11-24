@@ -24,7 +24,7 @@
         ]);
         $commit->hash = $faker->hexColor;
         $commit->branch = $faker->randomElement(['master', 'u-text']);
-        $commit->profile = $faker->randomElement(['test', 'consistency']);
+        $commit->profile = $faker->randomElement(['test', 'consistency', '']);
         $commit->author_email = $faker->email;
         $commit->start_time = $faker->unixTime;
         $commit->message = $faker->realText(random_int(10, 60));

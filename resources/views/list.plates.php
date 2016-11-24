@@ -104,7 +104,7 @@
           </span>
         </td>
         <td class="profile">
-          <span><?= $commit->profile ?></span>
+          <span><?= $commit->profile ? $commit->profile : 'default' ?></span>
         </td>
         <td class="commit" title="<?= htmlspecialchars(preg_replace("!\n.*$!", '', trim($commit->message))) ?>">
           <div class="message truncate">

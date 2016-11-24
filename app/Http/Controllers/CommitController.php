@@ -88,7 +88,7 @@
         return $lines;
       }
 
-      $resource = fopen($filePath, 'br');
+      $resource = fopen($filePath, 'r');
       while (!feof($resource)) {
         $line = fgets($resource);
         $data = json_decode($line);
